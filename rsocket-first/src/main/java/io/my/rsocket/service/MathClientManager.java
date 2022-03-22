@@ -1,7 +1,6 @@
 package io.my.rsocket.service;
 
 import org.springframework.messaging.rsocket.RSocketRequester;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 

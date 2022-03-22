@@ -1,6 +1,5 @@
 package io.my.rsocket.controller;
 
-import io.my.rsocket.dto.ClientConnectionRequest;
 import io.my.rsocket.service.MathClientManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.rsocket.RSocketRequester;
@@ -13,9 +12,14 @@ public class ConnectionHandler {
     @Autowired
     private MathClientManager clientManager;
 
+//    @ConnectMapping
+//    public Mono<Void> noEventConnection(RSocketRequester rSocketRequester) {
+//        System.out.println("no event connection setup");
+//        return Mono.empty();
+//    }
+
     @ConnectMapping
-    public Mono<Void> noEventConnection(RSocketRequester rSocketRequester) {
-        System.out.println("no event connection setup");
+    public Mono<Void> noEventConnection() {
         return Mono.empty();
     }
 
