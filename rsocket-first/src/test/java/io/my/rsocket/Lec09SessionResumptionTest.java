@@ -27,7 +27,8 @@ public class Lec09SessionResumptionTest {
     @Test
     public void connectionTest() {
         RSocketRequester requester = this.builder
-                .transport(TcpClientTransport.create("localhost", 6565));
+                .rsocketConnector(c -> c.reconnect(retryStream()))
+                .transport(TcpClientTransport.create("localhost", 6566));
 
         Flux<ComputationResponseDto> flux = requester.route("math.service.table")
                 .data(new ComputationRequestDto(5))
@@ -38,6 +39,12 @@ public class Lec09SessionResumptionTest {
         StepVerifier.create(flux)
                 .expectNextCount(10)
                 .verifyComplete()
+                ;
+    }
+
+    private Retry retryStream() {
+        return Retry.fixedDelay(100, Duration.ofSeconds(1))
+                .doBeforeRetry(s -> System.out.println("Retrying connection: " + s.totalRetriesInARow()))
                 ;
     }
 }
